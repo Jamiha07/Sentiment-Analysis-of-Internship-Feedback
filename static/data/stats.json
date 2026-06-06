@@ -1,0 +1,147 @@
+{
+  "total": 5000,
+  "positive": 2500,
+  "negative": 2500,
+  "avg_rating_pos": 8.23,
+  "avg_rating_neg": 2.75,
+  "by_department": {
+    "Software Engineering": {
+      "positive": 273,
+      "negative": 256
+    },
+    "Data Science": {
+      "positive": 246,
+      "negative": 276
+    },
+    "Marketing": {
+      "positive": 253,
+      "negative": 235
+    },
+    "Human Resources": {
+      "positive": 237,
+      "negative": 228
+    },
+    "Finance": {
+      "positive": 261,
+      "negative": 276
+    },
+    "Product Management": {
+      "positive": 246,
+      "negative": 228
+    },
+    "UI/UX Design": {
+      "positive": 242,
+      "negative": 255
+    },
+    "Business Development": {
+      "positive": 238,
+      "negative": 251
+    },
+    "Cybersecurity": {
+      "positive": 248,
+      "negative": 255
+    },
+    "Operations": {
+      "positive": 256,
+      "negative": 240
+    }
+  },
+  "by_company": {
+    "Tech Startup": {
+      "positive": 311,
+      "negative": 281
+    },
+    "MNC": {
+      "positive": 303,
+      "negative": 308
+    },
+    "E-commerce": {
+      "positive": 317,
+      "negative": 344
+    },
+    "FinTech": {
+      "positive": 345,
+      "negative": 306
+    },
+    "Healthcare": {
+      "positive": 311,
+      "negative": 346
+    },
+    "EdTech": {
+      "positive": 290,
+      "negative": 319
+    },
+    "Consulting Firm": {
+      "positive": 316,
+      "negative": 309
+    },
+    "Media & Advertising": {
+      "positive": 307,
+      "negative": 287
+    }
+  },
+  "by_work_mode": {
+    "Remote": {
+      "positive": 843,
+      "negative": 807
+    },
+    "Onsite": {
+      "positive": 816,
+      "negative": 819
+    },
+    "Hybrid": {
+      "positive": 841,
+      "negative": 874
+    }
+  },
+  "by_duration": {
+    "1 month": {
+      "positive": 618,
+      "negative": 620
+    },
+    "2 months": {
+      "positive": 632,
+      "negative": 651
+    },
+    "3 months": {
+      "positive": 616,
+      "negative": 628
+    },
+    "6 months": {
+      "positive": 634,
+      "negative": 601
+    }
+  },
+  "by_level": {
+    "Freshman": {
+      "positive": 532,
+      "negative": 502
+    },
+    "Sophomore": {
+      "positive": 467,
+      "negative": 481
+    },
+    "Junior": {
+      "positive": 511,
+      "negative": 513
+    },
+    "Senior": {
+      "positive": 461,
+      "negative": 501
+    },
+    "Fresh Graduate": {
+      "positive": 529,
+      "negative": 503
+    }
+  },
+  "stipend_sentiment": {
+    "with_stipend": {
+      "positive": 1252,
+      "negative": 1240
+    },
+    "no_stipend": {
+      "positive": 1248,
+      "negative": 1260
+    }
+  }
+}

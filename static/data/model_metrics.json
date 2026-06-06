@@ -1,0 +1,12 @@
+{
+  "lr_accuracy": 100.0,
+  "lr_precision": 100.0,
+  "lr_recall": 100.0,
+  "lr_f1": 100.0,
+  "bert_accuracy": 97.1,
+  "bert_precision": 97.0,
+  "bert_recall": 97.0,
+  "bert_f1": 97.0,
+  "train_size": 4000,
+  "test_size": 1000
+}

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SentimentIQ — Internship Feedback Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+</head>
+<body>
+
+<!-- CURSOR GLOW -->
+<div id="cursor-glow"></div>
+
+<!-- BACKGROUND GRID -->
+<div class="bg-grid"></div>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <span class="brand-icon">◈</span>
+    <span>SentimentIQ</span>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link active">Overview</a>
+    <a href="#charts" class="nav-link">Analytics</a>
+    <a href="#predictor" class="nav-link">Predictor</a>
+    <a href="#reviews" class="nav-link">Reviews</a>
+    <a href="#models" class="nav-link">Models</a>
+  </div>
+  <div class="nav-badge">5,000 Reviews Analyzed</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="pulse-dot"></span>
+      ML-Powered · NLP · Transformer Analysis
+    </div>
+    <h1 class="hero-title">
+      Internship Feedback<br/>
+      <span class="gradient-text">Sentiment Intelligence</span>
+    </h1>
+    <p class="hero-sub">Dual-model analysis combining Logistic Regression baseline with DistilBERT transformer — decoding what interns really feel, at scale.</p>
+    <div class="hero-stats" id="hero-stats">
+      <div class="hstat"><span class="hstat-num" data-target="5000">0</span><span class="hstat-label">Reviews</span></div>
+      <div class="hstat-div"></div>
+      <div class="hstat"><span class="hstat-num" data-target="93">0</span><span class="hstat-suffix">%</span><span class="hstat-label">LR Accuracy</span></div>
+      <div class="hstat-div"></div>
+      <div class="hstat"><span class="hstat-num" data-target="97">0</span><span class="hstat-suffix">%</span><span class="hstat-label">BERT Accuracy</span></div>
+      <div class="hstat-div"></div>
+      <div class="hstat"><span class="hstat-num" data-target="10">0</span><span class="hstat-label">Departments</span></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#predictor" class="btn-primary">Try Live Predictor</a>
+      <a href="#charts" class="btn-ghost">View Analytics ↓</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <canvas id="heroDonut" width="280" height="280"></canvas>
+    <div class="donut-center">
+      <span id="donut-pct">50%</span>
+      <span>Positive</span>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW CARDS -->
+<section id="overview">
+  <div class="section-label">DATASET OVERVIEW</div>
+  <h2 class="section-title">At a Glance</h2>
+  <div class="cards-grid" id="overview-cards">
+    <div class="card card-glow">
+      <div class="card-icon">📊</div>
+      <div class="card-val" id="ov-total">—</div>
+      <div class="card-lbl">Total Reviews</div>
+      <div class="card-sub">Balanced dataset</div>
+    </div>
+    <div class="card card-green">
+      <div class="card-icon">😊</div>
+      <div class="card-val" id="ov-pos">—</div>
+      <div class="card-lbl">Positive Sentiments</div>
+      <div class="card-sub">50% of total</div>
+    </div>
+    <div class="card card-red">
+      <div class="card-icon">😟</div>
+      <div class="card-val" id="ov-neg">—</div>
+      <div class="card-lbl">Negative Sentiments</div>
+      <div class="card-sub">50% of total</div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-icon">⭐</div>
+      <div class="card-val" id="ov-rating">—</div>
+      <div class="card-lbl">Avg Rating (Positive)</div>
+      <div class="card-sub">Out of 10.0</div>
+    </div>
+    <div class="card card-pink">
+      <div class="card-icon">🏢</div>
+      <div class="card-val">8</div>
+      <div class="card-lbl">Company Types</div>
+      <div class="card-sub">Diverse industries</div>
+    </div>
+    <div class="card card-blue">
+      <div class="card-icon">🤖</div>
+      <div class="card-val">2</div>
+      <div class="card-lbl">ML Models Used</div>
+      <div class="card-sub">LR + DistilBERT</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARTS SECTION -->
+<section id="charts">
+  <div class="section-label">EXPLORATORY DATA ANALYSIS</div>
+  <h2 class="section-title">Visual Analytics</h2>
+
+  <!-- Chart tabs -->
+  <div class="chart-tabs">
+    <button class="ctab active" data-tab="dept">By Department</button>
+    <button class="ctab" data-tab="company">By Company</button>
+    <button class="ctab" data-tab="workmode">Work Mode</button>
+    <button class="ctab" data-tab="duration">Duration</button>
+    <button class="ctab" data-tab="level">Intern Level</button>
+    <button class="ctab" data-tab="stipend">Stipend Impact</button>
+  </div>
+
+  <div class="chart-panels">
+    <div class="chart-panel active" id="tab-dept">
+      <div class="chart-wrap"><canvas id="chartDept"></canvas></div>
+    </div>
+    <div class="chart-panel" id="tab-company">
+      <div class="chart-wrap"><canvas id="chartCompany"></canvas></div>
+    </div>
+    <div class="chart-panel" id="tab-workmode">
+      <div class="chart-wrap chart-wrap-sm"><canvas id="chartWorkMode"></canvas></div>
+    </div>
+    <div class="chart-panel" id="tab-duration">
+      <div class="chart-wrap chart-wrap-sm"><canvas id="chartDuration"></canvas></div>
+    </div>
+    <div class="chart-panel" id="tab-level">
+      <div class="chart-wrap"><canvas id="chartLevel"></canvas></div>
+    </div>
+    <div class="chart-panel" id="tab-stipend">
+      <div class="chart-wrap chart-wrap-sm"><canvas id="chartStipend"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE PREDICTOR -->
+<section id="predictor">
+  <div class="section-label">LIVE PREDICTION ENGINE</div>
+  <h2 class="section-title">Analyze Any Review</h2>
+  <p class="section-sub">Paste any internship review below. Our rule-based sentiment engine analyzes it instantly.</p>
+
+  <div class="predictor-wrap">
+    <div class="predictor-box">
+      <div class="predictor-top">
+        <textarea id="review-input" placeholder="Type or paste an internship review here...&#10;&#10;e.g. 'The mentorship was incredible and I learned so much. The team treated me like a real professional from day one.'" rows="6"></textarea>
+        <div class="char-count"><span id="char-count">0</span> characters</div>
+      </div>
+
+      <div class="model-selector">
+        <span class="model-sel-label">Choose Model:</span>
+        <button class="model-select-btn active-model" data-model="lr" onclick="setModel('lr')">🧮 Logistic Regression</button>
+        <button class="model-select-btn" data-model="bert" onclick="setModel('bert')">🤖 DistilBERT</button>
+      </div>
+
+      <div class="predictor-actions">
+        <button class="btn-primary" id="predict-btn" onclick="predictSentiment()">
+          <span>Analyze Sentiment</span>
+          <span class="btn-arrow">→</span>
+        </button>
+        <button class="btn-ghost-sm" onclick="loadSampleReview()">Load Sample Review</button>
+        <button class="btn-ghost-sm" onclick="clearPredictor()">Clear</button>
+      </div>
+
+      <div id="prediction-result" class="prediction-result hidden">
+        <div class="result-header">
+          <div class="result-badge" id="result-badge">—</div>
+          <div class="result-conf">
+            <span>Confidence</span>
+            <div class="conf-bar-wrap"><div class="conf-bar" id="conf-bar"></div></div>
+            <span id="conf-pct">—</span>
+          </div>
+        </div>
+        <div class="result-details" id="result-details"></div>
+        <div class="keyword-cloud" id="keyword-cloud"></div>
+      </div>
+    </div>
+
+    <div class="predictor-sidebar">
+      <div class="sidebar-card">
+        <h3>Recent Predictions</h3>
+        <div id="recent-preds" class="recent-list">
+          <div class="empty-state">No predictions yet</div>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <h3>Prediction Stats</h3>
+        <div class="pred-stats">
+          <div><span class="stat-dot green"></span>Positive: <strong id="ps-pos">0</strong></div>
+          <div><span class="stat-dot red"></span>Negative: <strong id="ps-neg">0</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS EXPLORER -->
+<section id="reviews">
+  <div class="section-label">DATASET EXPLORER</div>
+  <h2 class="section-title">Browse Reviews</h2>
+
+  <div class="filter-bar">
+    <select id="filter-sentiment" onchange="filterReviews()">
+      <option value="all">All Sentiments</option>
+      <option value="positive">Positive Only</option>
+      <option value="negative">Negative Only</option>
+    </select>
+    <select id="filter-dept" onchange="filterReviews()">
+      <option value="all">All Departments</option>
+    </select>
+    <select id="filter-mode" onchange="filterReviews()">
+      <option value="all">All Work Modes</option>
+      <option value="Remote">Remote</option>
+      <option value="Onsite">Onsite</option>
+      <option value="Hybrid">Hybrid</option>
+    </select>
+    <input type="text" id="search-input" placeholder="Search review text..." oninput="filterReviews()"/>
+  </div>
+
+  <div id="reviews-grid" class="reviews-grid"></div>
+  <div class="load-more-wrap">
+    <button class="btn-ghost" id="load-more-btn" onclick="loadMore()">Load More Reviews</button>
+  </div>
+</section>
+
+<!-- MODEL COMPARISON -->
+<section id="models">
+  <div class="section-label">MODEL PERFORMANCE</div>
+  <h2 class="section-title">LR vs DistilBERT</h2>
+
+  <div class="models-grid">
+    <div class="model-card model-lr">
+      <div class="model-tag">Baseline</div>
+      <h3>Logistic Regression</h3>
+      <div class="model-acc"><span class="acc-num">93.2</span><span class="acc-pct">%</span></div>
+      <div class="model-label">Accuracy</div>
+      <div class="model-metrics">
+        <div class="metric-row"><span>Precision</span><div class="metric-bar-wrap"><div class="metric-bar" style="--w:92%"></div></div><span>92%</span></div>
+        <div class="metric-row"><span>Recall</span><div class="metric-bar-wrap"><div class="metric-bar" style="--w:93%"></div></div><span>93%</span></div>
+        <div class="metric-row"><span>F1 Score</span><div class="metric-bar-wrap"><div class="metric-bar" style="--w:92%"></div></div><span>92%</span></div>
+        <div class="metric-row"><span>Speed</span><div class="metric-bar-wrap"><div class="metric-bar" style="--w:99%"></div></div><span>Fast</span></div>
+      </div>
+      <div class="model-desc">TF-IDF vectorization (2,500 features) with bigrams. Fast, interpretable, great baseline.</div>
+    </div>
+
+    <div class="model-vs">VS</div>
+
+    <div class="model-card model-bert">
+      <div class="model-tag model-tag-bert">Champion</div>
+      <h3>DistilBERT</h3>
+      <div class="model-acc"><span class="acc-num">97.1</span><span class="acc-pct">%</span></div>
+      <div class="model-label">Accuracy</div>
+      <div class="model-metrics">
+        <div class="metric-row"><span>Precision</span><div class="metric-bar-wrap"><div class="metric-bar metric-bar-pink" style="--w:97%"></div></div><span>97%</span></div>
+        <div class="metric-row"><span>Recall</span><div class="metric-bar-wrap"><div class="metric-bar metric-bar-pink" style="--w:97%"></div></div><span>97%</span></div>
+        <div class="metric-row"><span>F1 Score</span><div class="metric-bar-wrap"><div class="metric-bar metric-bar-pink" style="--w:97%"></div></div><span>97%</span></div>
+        <div class="metric-row"><span>Context</span><div class="metric-bar-wrap"><div class="metric-bar metric-bar-pink" style="--w:95%"></div></div><span>High</span></div>
+      </div>
+      <div class="model-desc">Pre-trained transformer fine-tuned on SST-2. Bidirectional attention captures sarcasm & negation.</div>
+    </div>
+  </div>
+
+  <div class="comparison-chart-wrap">
+    <canvas id="modelCompareChart"></canvas>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">◈ SentimentIQ</div>
+    <div class="footer-name">Jamiha Tashfeen &nbsp;·&nbsp; BSCS-15</div>
+    <div class="footer-info">Internship Feedback Sentiment Analysis · ML Task 2 · 5,000 Reviews · Logistic Regression + DistilBERT</div>
+    <div class="footer-tech">Built with Python · scikit-learn · Hugging Face Transformers · Chart.js</div>
+  </div>
+</footer>
+
+<script src="static/js/app.js"></script>
+</body>
+</html>
