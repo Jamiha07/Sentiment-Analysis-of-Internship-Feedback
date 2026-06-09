@@ -218,7 +218,7 @@ document.querySelectorAll('.ctab').forEach(btn => {
 // When deployed on Render: https://your-app-name.onrender.com
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? `http://${window.location.host}`
-  : 'https://sentimentiq-api-production-dca3.up.railway.app';  // ← replace after Render deployment
+  : 'https://sentimentiq-api-production.up.railway.app';  // ← replace after Render deployment
 
 // Selected model toggle (lr or bert)
 let selectedModel = 'bert';
